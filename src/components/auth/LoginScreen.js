@@ -1,26 +1,49 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import { useForm } from '../../hooks/useForm';
+import { useDispatch } from 'react-redux';
 
 export const LoginScreen = () => {
+
+    const dispatch = useDispatch()
+
+    const [values, handleInputChange] = useForm({
+        email: 'lizandro23difo@gmail.com',
+        password: '1234',
+
+    })
+
+    const { email, password } = values;
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        console.log(email, password);
+        dispatch(login)
+    }
+
     return (
         <>
             <h3 className="auth__title">Login</h3>
 
-            <form>
+            <form onSubmit={handleLogin}>
 
-                <input 
+                <input
                     type="text"
                     placeholder="Email"
                     name="email"
                     className="auth__input"
                     autoComplete="off"
+                    value={email}
+                    onChange={handleInputChange}
                 />
 
-                <input 
+                <input
                     type="password"
                     placeholder="Password"
                     name="password"
                     className="auth__input"
+                    value={password}
+                    onChange={handleInputChange}
                 />
 
 
@@ -31,11 +54,11 @@ export const LoginScreen = () => {
                     Login
                 </button>
 
-                
+
                 <div className="auth__social-networks">
                     <p>Login with social networks</p>
 
-                    <div 
+                    <div
                         className="google-btn"
                     >
                         <div className="google-icon-wrapper">
@@ -47,11 +70,11 @@ export const LoginScreen = () => {
                     </div>
                 </div>
 
-                <Link 
+                <Link
                     to="/auth/register"
                     className="link"
                 >
-                    Create new account    
+                    Create new account
                 </Link>
 
             </form>
