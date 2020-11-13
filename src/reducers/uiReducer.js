@@ -6,19 +6,22 @@ const initialState = {
     msgError: null
 }
 
-export const uiReducer = (state = {}, action) => {
+export const uiReducer = (state = initialState, action) => {
 
 
     switch (action.type) {
-        case types.:
+        case types.uiSetError:
             return {
-                uid: action.payload.uid,
-                name: action.payload.displayName
+                ...state,
+                msgError: action.payload
             }
 
-        case types.logout:
+        case types.uiRemoveError:
 
-            return {};
+            return {
+                ...state,
+                msgError: null
+            };
 
         default:
             return state;

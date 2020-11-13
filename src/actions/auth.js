@@ -4,10 +4,24 @@ import { firebase, googleAuthProvider } from '../firebase/firebaseConfig';
 
 export const startLoginEmailWithPassword = (email, password) => {
     return (dispatch) => {
-        setTimeout(() => {
 
-            dispatch(login(123, 'Pedro'));
-        }, 3500);
+        firebase.auth().signInWithEmailAndPassword(email, password).then(({ user }) => {
+            dispatch(login(user.uid, user.displayName))
+
+        }).catch(error => console.log(error))
+
+    }
+}
+
+
+export const startRegisterWithEmailPasswordName = (email, password, name) => {
+
+    return (dispatch) => {
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(async ({ user }) => {
+            user.updateProfile({ displayName: name })
+            console.log(user)
+            dispatch(login(user.uid, user.displayName))
+        }).catch(error => console.warn(error))
     }
 }
 
