@@ -7,8 +7,18 @@ export const setError = (err) => ({
     payload: err
 })
 
+export const startLoading = () => ({
+    type: types.uiStartLoading,
+    payload: true
 
-export const removeError = (e) => ({
+})
+export const finishLoading = () => ({
+    type: types.uiFinishLoading,
+    payload: false
+
+})
+
+export const removeError = () => ({
 
     type: types.uiRemoveError,
     payload: null
