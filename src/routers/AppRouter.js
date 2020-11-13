@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -16,7 +16,13 @@ import { login } from '../actions/auth';
 export const AppRouter = () => {
 
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+
+    const [cheking, setcheking] = useState(true);
+
+    const [isLoggedIn, setisLoggedIn] = useState(false)
+
+
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged(user => {
@@ -26,22 +32,37 @@ export const AppRouter = () => {
                 dispatch(
                     login(user.uid, user.displayName)
                 );
+                setisLoggedIn(true)
 
+            } else {
+                setisLoggedIn(false);
             }
 
-        })
-    }, [dispatch])
 
+            setcheking(false);
+
+        })
+    }, [dispatch, setcheking, isLoggedIn])
+
+
+    if (cheking) {
+        return (
+            <div className="auth__main">
+                <div className="spinner meter"></div>
+            </div>
+        )
+    }
 
     return (
         <Router>
             <div>
                 <Switch>
+
+
                     <Route
                         path="/auth"
                         component={AuthRouter}
                     />
-
                     <Route
                         exact
                         path="/"
