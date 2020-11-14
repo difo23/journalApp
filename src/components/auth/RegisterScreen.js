@@ -58,7 +58,6 @@ export const RegisterScreen = () => {
         <>
             <h3 className="auth__title">Register</h3>
 
-            {state.ui.msgError != null && <h4 className="auth__alert-error">{state.ui.msgError}</h4>}
 
 
             <form onSubmit={handleRegister}>

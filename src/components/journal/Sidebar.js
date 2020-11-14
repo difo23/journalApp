@@ -7,8 +7,8 @@ export const Sidebar = () => {
 
     const dispatch = useDispatch();
 
-    const handleLogout = () => {
-
+    const handleLogout = (e) => {
+        e.preventDefault();
         dispatch(startLogout())
     }
     return (

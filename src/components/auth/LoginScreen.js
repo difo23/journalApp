@@ -28,7 +28,7 @@ export const LoginScreen = () => {
     return (
         <>
             <h3 className="auth__title">Login</h3>
-            {state.ui.msgError != null && <h4 className="auth__alert-error">{state.ui.msgError}</h4>}
+          
             <form onSubmit={handleLogin}>
 
                 <input
