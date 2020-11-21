@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import validator from 'validator';
+import Swal from 'sweetalert2'
 
 import { useForm } from '../../hooks/useForm';
 import { removeError, setError } from '../../actions/ui';
@@ -40,20 +41,23 @@ export const RegisterScreen = () => {
 
         if (name.trim().length === 0) {
             dispatch(setError('Name is required'))
-
+            Swal.fire('Error', 'Name is required', 'error')
             return false;
         } else if (!validator.isEmail(email)) {
             dispatch(setError('Email is not email'))
-
+            Swal.fire('Error', 'Email is not valid!', 'error')
             return false;
         } else if (password !== password2 || password.length < 5) {
-            dispatch(setError('No son iguales los pass'))
-
+            dispatch(setError('Same password is required'))
+            Swal.fire('Error', 'Not same password in confirmation', 'error')
             return false;
         }
-        dispatch(removeError('No son iguales los pass'))
+        dispatch(removeError())
+
         return true;
     }
+
+    
     return (
         <>
             <h3 className="auth__title">Register</h3>
